@@ -16,5 +16,10 @@ int main(int argc, char** argv) {
         std::cout << counter;
     }
 
+    std::cout << "\nWhile loop\n";
+    while(a<10){
+        std::cout << a;
+        a++;
+    }
     return (EXIT_SUCCESS);
 }
