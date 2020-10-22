@@ -21,5 +21,12 @@ int main(int argc, char** argv) {
         std::cout << a;
         a++;
     }
+
+    std::cout << "\nDo While\n";
+    do {
+        a++;
+        std::cout << a;
+    } while (a<10);
+
     return (EXIT_SUCCESS);
 }
