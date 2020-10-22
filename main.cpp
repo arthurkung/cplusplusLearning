@@ -11,6 +11,10 @@ int main(int argc, char** argv) {
     } else {
         std::cout << 3;
     }
+    std::cout << "\nloop\n";
+    for(int counter=1; counter<11;counter++){
+        std::cout << counter;
+    }
 
     return (EXIT_SUCCESS);
 }
