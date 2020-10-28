@@ -11,6 +11,7 @@ int main()
     std::cin >> y;
     std::cout << x << " plus " << y << " is " << math::add(x, y)<<"\n";
     std::cout << "value of pi is: " << math::pi << "\n";
+    std::cout << "value of gravity is: " << math::gravity << "\n";
 
 }
 

@@ -6,4 +6,6 @@ namespace math {
 
 		return x + y;
 	}
+	extern const double gravity{ 9.8 };
+
 }
