@@ -1,0 +1,2 @@
+C:\Users\AK\source\repos\cplusplusLearning\pointerExample\Debug\pointerExample.exe
+C:\Users\AK\source\repos\cplusplusLearning\pointerExample\Debug\pointerExample.pdb
