@@ -101,5 +101,21 @@ int main()
     auto numT2{ std::count_if(std::begin(word), std::end(word), isT) };
     std::cout << "the word " << word << " has " << numT2 << " t(s). Using count_if\n";
 
+    // pointer and const
+    int value1 = 5;
+    const int* ptr1 = &value1; // ptr points to a "const int"
+    value1 = 6; // the value is non-const when accessed through a non-const identifier
+    // *ptr = 6; // ptr treats its value as const, so changing the value through ptr is not legal
+
+    int value2 = 6;
+    ptr1 = &value2; // okay, ptr now points at some other const int
+
+    // const pointer
+    int value = 5;
+    int* const ptr2 = &value;    // a const pointer: const between type and pointer name
+    *ptr2 = 6; // allowed, since ptr points to a non-const int
+    // ptr2 = &value2; // not okay, once initialized, a const pointer can not be changed.
+
+
     return 0;
 }
