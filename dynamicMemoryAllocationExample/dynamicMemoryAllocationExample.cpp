@@ -66,7 +66,9 @@ int main()
 
     }
 
+    int* array1{ new int[5]{ 9, 7, 5, 3, 1 } }; // initialize a dynamic array since C++11
+    // To prevent writing the type twice, we can use auto. This is often done for types with long names.
+    auto* array2{ new int[5]{ 9, 7, 5, 3, 1 } };
 
-    std::cout << "Hello World!\n";
 }
 
