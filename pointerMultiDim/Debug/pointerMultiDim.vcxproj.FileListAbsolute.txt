@@ -1,0 +1,2 @@
+C:\Users\AK\source\repos\cplusplusLearning\pointerMultiDim\Debug\pointerMultiDim.exe
+C:\Users\AK\source\repos\cplusplusLearning\pointerMultiDim\Debug\pointerMultiDim.pdb
