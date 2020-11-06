@@ -1,0 +1,2 @@
+C:\Users\AK\source\repos\cplusplusLearning\referenceExample\Debug\referenceExample.exe
+C:\Users\AK\source\repos\cplusplusLearning\referenceExample\Debug\referenceExample.pdb
