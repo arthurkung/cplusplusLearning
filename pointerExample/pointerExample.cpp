@@ -22,6 +22,31 @@ bool isT(char ch)
     return false;
 }
 
+void studyMemberSelection()
+{
+    /*When using a pointer to access the value of a member,
+    * use operator-> instead of operator. (the . operator)
+    */
+    struct Paw
+    {
+        int claws{};
+    };
+
+    struct Animal
+    {
+        std::string name{};
+        Paw paw{};
+    };
+
+    Animal puma{ "Puma", { 5 } };
+
+    Animal* pointy{ &puma };
+
+    // pointy is a pointer, use ->
+    // paw is not a pointer, use .
+    std::cout << "Access members of pointers vs non pointers" << '\n';
+    std::cout << pointy->paw.claws << '\n';
+}
 int main()
 {
     int x{ 5 };
@@ -116,6 +141,7 @@ int main()
     *ptr2 = 6; // allowed, since ptr points to a non-const int
     // ptr2 = &value2; // not okay, once initialized, a const pointer can not be changed.
 
+    studyMemberSelection();
 
     return 0;
 }
