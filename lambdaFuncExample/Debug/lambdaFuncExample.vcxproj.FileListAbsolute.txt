@@ -1,0 +1,2 @@
+C:\Users\AK\source\repos\cplusplusLearning\lambdaFuncExample\Debug\lambdaFuncExample.exe
+C:\Users\AK\source\repos\cplusplusLearning\lambdaFuncExample\Debug\lambdaFuncExample.pdb
