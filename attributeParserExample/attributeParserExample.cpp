@@ -9,6 +9,19 @@
 #include <map>
 using namespace std;
 
+class TagInput
+{
+public:
+    std::string m_string;
+    bool isNewTag() {
+        return m_string[1] != '/';
+    }
+    std::string getTagName() {
+        return m_string;
+    }
+};
+
+
 class Tag {
 public:
     string m_name;
@@ -37,11 +50,6 @@ public:
         return;
     }
 };
-bool newTagDetected(const std::string& input) {
-    if (input[1] == '/')
-        return false;
-    return true;
-}
 int main() {
     /* Enter your code here. Read input from STDIN. Print output to STDOUT */
     int tagLines{};
@@ -50,13 +58,13 @@ int main() {
     cin.ignore();
     Tag adamTag;
     Tag* currentTag{ &adamTag };
-    std::string inputStr{};
+    TagInput input{};
     for (int i{}; i < tagLines; ++i)
     {
-        getline(cin, inputStr);
-        if (newTagDetected(inputStr)) {
+        getline(cin, input.m_string);
+        if (input.isNewTag()) {
             currentTag = currentTag->addChildTag();
-            currentTag->setTagName(inputStr);
+            currentTag->setTagName(input.getTagName());
             currentTag->setAttributes();
 
         }
