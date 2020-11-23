@@ -14,10 +14,27 @@ class TagInput
 public:
     std::string m_string;
     bool isNewTag() {
-        return m_string[1] != '/';
+        constexpr char tagClosureIdentifier = '/';
+        return m_string[tagStartLoc] != tagClosureIdentifier;
     }
     std::string getTagName() {
-        return m_string;
+        constexpr char tagDelimiter = ' ';
+        return getStringUpToNext(tagDelimiter,tagStartLoc, false);
+    }
+    std::string getStringUpToNext(const char charToMatch, const int startingPos, const bool includeChar)
+    {
+        return m_string.substr(startingPos, m_string.find(charToMatch, startingPos) - (includeChar ? 0 : 1));
+    }
+    
+
+private:
+    static constexpr int tagStartLoc = 1;
+    std::string& trim(std::string& str, char charToTrim)
+    {
+        std::string::size_type start{ str.find_first_not_of(charToTrim) };
+        std::string::size_type end{ str.find_last_not_of(charToTrim) };
+        str = str.substr(start, end - start + 1);
+        return str;
     }
 };
 
@@ -43,10 +60,10 @@ public:
     Tag* getParentTag() {
         return m_parent;
     }
-    void setTagName(std::string input) {
-        m_name = input;
+    void setTagName(const std::string& inputStr) {
+        m_name = inputStr;
     }
-    void setAttributes() {
+    void setAttributes(TagInput& tagInput) {
         return;
     }
 };
@@ -59,13 +76,14 @@ int main() {
     Tag adamTag;
     Tag* currentTag{ &adamTag };
     TagInput input{};
+
     for (int i{}; i < tagLines; ++i)
     {
         getline(cin, input.m_string);
         if (input.isNewTag()) {
             currentTag = currentTag->addChildTag();
             currentTag->setTagName(input.getTagName());
-            currentTag->setAttributes();
+            currentTag->setAttributes(input);
 
         }
         else {
