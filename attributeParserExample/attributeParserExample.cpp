@@ -7,67 +7,8 @@
 #include <iostream>
 #include <algorithm>
 #include <map>
+#include "tagInput.h"
 using namespace std;
-
-class TagInput
-{
-public:
-    bool isNewTag() {
-        constexpr char tagClosureIdentifier = '/';
-        return m_string[tagStartLoc] != tagClosureIdentifier;
-    }
-    std::string getTagName() {
-        constexpr char tagDelimiter = '|';
-        return getStringUpToNext(tagDelimiter,tagStartLoc);
-    }
-    
-    std::string getNextAttributeValue() {
-        constexpr char quotes = '"';
-        getStringUpToNext(quotes);
-        std::string attributeValue{ getStringUpToNext(quotes) };
-        return trim(attributeValue);
-    }
-    std::string getNextAttribute() {
-        constexpr char eqSign = '=';
-        std::string attribute{ getStringUpToNext(eqSign) };
-        if (attribute == "Error: char not matched!")
-        {
-            return "No attributes found";
-        }
-        return trim(attribute);
-    }
-    void setupInput(std::istream& in) {
-        getline(in, m_string);
-    }
-    void printString() {
-        std::cout << m_string<<"\n";
-    }
-private:
-    static constexpr int tagStartLoc = 1;
-    std::string m_string;
-    std::string& trim(std::string& str, char charToTrim=' ')
-    {
-        std::string::size_type start{ str.find_first_not_of(charToTrim) };
-        std::string::size_type end{ str.find_last_not_of(charToTrim) };
-        str = str.substr(start, end - start + 1);
-        return str;
-    }
-    std::string getFirstPartOfString(const std::string::size_type matchLoc, const int startingPos = 0)
-    {
-        std::string result{ m_string.substr(startingPos,  matchLoc - startingPos) };
-        m_string.erase(0, matchLoc+1);
-        return result;
-    }
-    std::string getStringUpToNext(const char charToMatch, const int startingPos=0)
-    {
-        std::string::size_type matchLoc{ m_string.find(charToMatch, startingPos) };
-        if (matchLoc == m_string.npos)
-        {
-            return "Error: char not matched!";
-        }
-        return getFirstPartOfString(matchLoc, startingPos);
-    }
-};
 
 
 class Tag {
@@ -104,6 +45,11 @@ public:
         
         return;
     }
+    std::string getQueryResult(TagInput& tagInput) {
+        std::string attribute{};
+        std::string tag{};
+        tagInput.setupInput(std::cin);
+    }
 };
 int main() {
     /* Enter your code here. Read input from STDIN. Print output to STDOUT */
@@ -128,7 +74,14 @@ int main() {
             currentTag = currentTag->getParentTag();
         }
     }
-    
+    /*queries*/
+    for (int i{}; i < queryLines; ++i)
+    {
+        input.setupInput(std::cin);
+        
+    }
+
+
     std::cout << adamTag.m_children[0].m_name;
     //std::string a{ "this is a string" };
     //std::string::size_type i{};
