@@ -5,6 +5,8 @@
 class TagInput
 {
 public:
+    static const std::string notFoundOutputMsg;
+
     bool isNewTag();
 
     std::string getTagName();
@@ -20,6 +22,7 @@ public:
         return m_string;
     }
     std::string getAttributeFromQuery();
+    std::string getNextTag();
 private:
     static const std::string noMatchMsg;
     static constexpr int tagStartLoc=1;

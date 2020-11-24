@@ -45,9 +45,19 @@ std::string TagInput::getNextAttribute() {
     std::string attribute{ getStringUpToNext(eqSign) };
     if (attribute == noMatchMsg)
     {
-        return "No attributes found";
+        return notFoundOutputMsg;
     }
     return trim(attribute);
+}
+std::string TagInput::getNextTag() {
+    constexpr char tagDelimiter = '.';
+    std::string tag{ getStringUpToNext(tagDelimiter) };
+    if (tag == noMatchMsg)
+    {
+        tag = m_string;
+        m_string = "";
+    }
+    return tag;
 }
 
 std::string TagInput::getAttributeFromQuery() {
@@ -55,12 +65,13 @@ std::string TagInput::getAttributeFromQuery() {
     std::string tagPart{ getStringUpToNext(attributeDelimiter) };
     if (tagPart == noMatchMsg)
     {
-        return "No attributes found";
+        return notFoundOutputMsg;
     }
     std::string attribute{ m_string };
     m_string = tagPart;
     return attribute;
 }
 const std::string TagInput::noMatchMsg = "Error: char not matched!";
+const std::string TagInput::notFoundOutputMsg = "Not found";
 
 

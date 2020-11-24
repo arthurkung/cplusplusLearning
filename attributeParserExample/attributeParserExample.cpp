@@ -38,17 +38,45 @@ public:
     void setAttributes(TagInput& tagInput) {
         std::string attribute{};
         std::string attributeValue{};
-        while ((attribute  = tagInput.getNextAttribute()) != "No attributes found") {
+        while ((attribute  = tagInput.getNextAttribute()) != tagInput.notFoundOutputMsg) {
             attributeValue = tagInput.getNextAttributeValue();
-            std::cout << "attribute: " << attribute << "; value: " << attributeValue << "\n";
+            //std::cout << "attribute: " << attribute << "; value: " << attributeValue << "\n";
+            m_attributes.insert({ attribute,attributeValue });
         }
         
         return;
     }
     std::string getQueryResult(TagInput& tagInput) {
-        std::string attribute{};
-        std::string tag{};
-        tagInput.setupInput(std::cin);
+        std::string attribute{ tagInput.getAttributeFromQuery() };
+        if (attribute == tagInput.notFoundOutputMsg)
+        {
+            return "Not Found!";
+        }
+        Tag* currentTag{ this };
+        std::string tagName{ };
+        while (tagInput.getString().length()) {
+            tagName = tagInput.getNextTag();
+            auto found{ std::find_if(currentTag->m_children.begin(), currentTag->m_children.end(), [&tagName](const Tag& tag)
+                             {
+                                return (tag.m_name == tagName);
+                             }) 
+            };
+
+            if (found == currentTag->m_children.end())
+            {
+                return "Not Found!";
+            }
+            else
+            {
+                currentTag = &(*found);
+            }
+        }
+        if (currentTag->m_attributes.find(attribute) == currentTag->m_attributes.end())
+        {
+            return "Not Found!";
+        }
+        return currentTag->m_attributes.find(attribute)->second;
+
     }
 };
 int main() {
@@ -74,20 +102,13 @@ int main() {
             currentTag = currentTag->getParentTag();
         }
     }
-    /*queries*/
+    //queries
     for (int i{}; i < queryLines; ++i)
     {
         input.setupInput(std::cin);
-        
+        std::cout<<adamTag.getQueryResult(input)<<"\n";
     }
 
-
-    std::cout << adamTag.m_children[0].m_name;
-    //std::string a{ "this is a string" };
-    //std::string::size_type i{};
-    //std::cout << ((i = a.find(' ')) != a.npos);
-    //std::cout << a.find(' ', 6);
-    //std::cout << ((i = a.find('x')) != a.npos);
 
     return 0;
 }
